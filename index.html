@@ -2,8 +2,18 @@
 <html>
   <body>
     <script>
-      const hash = window.location.hash
-      window.location.href = 'extension://kdmbpnanpiimdcamgblndagcjjeobadc/auth-complete.html' + hash
+      // Extract the hash from the URL
+      const hash = window.location.hash.substring(1);
+
+      // Send the data to your extension
+      chrome.runtime.sendMessage(
+        "kdmbpnanpiimdcamgblndagcjjeobadc",
+        { type: "AUTH_COMPLETE", payload: hash },
+        () => {
+          // Close the tab after sending
+          window.close();
+        }
+      );
     </script>
   </body>
 </html>
