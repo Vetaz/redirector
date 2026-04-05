@@ -1,19 +1,13 @@
 <!doctype html>
 <html>
   <body>
+    <p>On Redirector</p>
     <script>
-      // Extract the hash from the URL
-      const hash = window.location.hash.substring(1);
+      // Send the hash back to the opener (your extension popup)
+      window.opener.postMessage({ type: 'AUTH_SUCCESS', hash: window.location.hash }, '*')
 
-      // Send the data to your extension
-      chrome.runtime.sendMessage(
-        "kdmbpnanpiimdcamgblndagcjjeobadc",
-        { type: "AUTH_COMPLETE", payload: hash },
-        () => {
-          // Close the tab after sending
-          window.close();
-        }
-      );
+      // Close the redirector window
+      window.close()
     </script>
   </body>
 </html>
