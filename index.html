@@ -3,10 +3,12 @@
   <body>
     <p>On Redirector</p>
     <script>
-      // Send the hash back to the opener (your extension popup)
-      window.opener.postMessage({ type: 'AUTH_SUCCESS', hash: window.location.hash }, '*')
+      if (window.opener) {
+        window.opener.postMessage({ type: 'AUTH_SUCCESS', hash: window.location.hash }, '*')
+      } else {
+        console.error('No opener — cannot send message')
+      }
 
-      // Close the redirector window
       window.close()
     </script>
   </body>
