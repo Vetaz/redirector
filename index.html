@@ -3,13 +3,11 @@
   <body>
     <p>On Redirector</p>
     <script>
-      if (window.opener) {
-        window.opener.postMessage({ type: 'AUTH_SUCCESS', hash: window.location.hash }, '*')
-      } else {
-        console.error('No opener — cannot send message')
-      }
+      const hash = window.location.hash.substring(1)
 
-      window.close()
+      chrome.runtime.sendMessage('kdmbpnanpiimdcamgblndagcjjeobadc', { type: 'AUTH_SUCCESS', hash }, () => {
+        window.close()
+      })
     </script>
   </body>
 </html>
